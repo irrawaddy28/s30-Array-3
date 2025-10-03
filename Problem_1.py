@@ -80,17 +80,22 @@ def trap_TwoPointer2(height: List[int]) -> int:
 
 def trap_TwoPointer3(height: List[int]) -> int:
     N = len(height)
-    lmax, l = 0, 0
-    rmax, r = 0, N-1
+    # init max height on the left and right to 0
+    # since we can assume that the max ht to the left of height[0]
+    # is 0. Likewise, max ht to the right of height[N-1] is 0
+    lmax, rmax = 0, 0
+    # two pointers
+    l, r = 0, N-1
+    # area of trapped water
     result = 0
     while l <= r:
         lmax = max(lmax, height[l])
         rmax = max(rmax, height[r])
-        if lmax < rmax:
-            result += lmax - height[l]
+        if lmax <= rmax:
+            result += max(lmax - height[l], 0)
             l += 1
         else:
-            result += rmax - height[r]
+            result += max(rmax - height[r], 0)
             r -= 1
     return result
 

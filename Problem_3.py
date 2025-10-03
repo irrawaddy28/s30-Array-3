@@ -112,30 +112,46 @@ def hIndex_2(citations):
     if not citations:
         return 0
     N = len(citations)
-    citations = sorted(citations)
+
+    # sort by increasing order of citations
+    # citations = sorted(citations)
+    # for i in range(N):
+    #     if citations[i] >= N-i:
+    #         return N-i
+    # return 0
+
+    # sort by decreasing order of citations (more natural than increasing order)
+    citations.sort(reverse=True)
+    N = len(citations)
+    h = 0
     for i in range(N):
-        if citations[i] >= N-i:
-            return N-i
-    return 0
+        if citations[i] >= i+1:
+            h += 1
+    return h
 
 def hIndex_3(citations):
     '''Time: O(N), Space: O(N)'''
     if not citations:
         return 0
     N = len(citations)
-    bucket = [0]*(N+1)
-    for i in range(N):
-        index = citations[i]
-        if index < N:
-            bucket[index] += 1
+    buckets = [0]*(N+1)
+    for c in citations: # O(N)
+        if c >=N:
+            buckets[N] += 1
         else:
-            bucket[N] += 1
-    sum=0
-    for j in range(N,-1,-1):
-        sum += bucket[j]
-        if sum >= j:
-           return j
-    return 0
+            buckets[c] += 1
+
+    # buckets[c] = n means there are n papers
+    # which have received c citations
+
+    num_papers = 0
+    h = 0
+    for ncite in range(N,-1,-1):
+        num_papers += buckets[ncite]
+        if num_papers >= ncite:
+           h = ncite
+           break
+    return h
 
 def run_hIndex():
     tests = [([3,0,6,1,5], 3), ([1,3,1],1), ([0,0,0,0,0],0)]
