@@ -75,7 +75,7 @@ Sort the array in increasing order. Traverse the sorted array from left to right
 https://youtu.be/M8AX7QvCtsg?t=3237
 Time: O(N log N), Space: O(1)
 
-3. Bucket Sort
+3. Count Sort
 For N papers, possible values of hindex = [0,1,2,...,N] (N+1 values)
 Create a bucket (array) of size N+1. The indices of the bucket are the possible values of hindex.
 
@@ -87,8 +87,9 @@ After filling the bucket, start from the end of the bucket (j = N). set sum = bu
 
 If sum < j, decrease j by 1 and increase sum to sum = sum + bucket[j]. The first j where sum >= j is the hindex.
 
-This is also known as bucket sort.
+This is also known as count sort.
 https://youtu.be/M8AX7QvCtsg?t=3727
+https://youtu.be/mgG5KFTvfPw?t=274 (easy explanation)
 Time: O(N), Space: O(N)
 
 '''
